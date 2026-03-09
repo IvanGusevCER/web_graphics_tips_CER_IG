@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Eraser Mode</title>
+    <style>
+        body { margin: 0; background: #222; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .container { position: relative; width: 600px; height: 400px; cursor: crosshair; }
+        .background-img { 
+            position: absolute; width: 100%; height: 100%; 
+            background: url('https://picsum.photos/600/400?nature') center/cover;
+        }
+        canvas { position: absolute; top: 0; left: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="background-img"></div>
+        <canvas id="eraserCanvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('eraserCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 600; canvas.height = 400;
+
+        // Закрашиваем верхний слой серым цветом
+        ctx.fillStyle = '#555';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        ctx.font = '30px sans-serif';
+        ctx.fillText('Pühi mind ära!', 200, 200);
+
+        // Режим "стирания"
+        ctx.globalCompositeOperation = 'destination-out';
+
+        function erase(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (e.buttons === 1) erase(e); // Стираем только при нажатой кнопке
+        });
+    </script>
+</body>
+</html>

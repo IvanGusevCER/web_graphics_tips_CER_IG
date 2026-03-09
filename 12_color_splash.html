@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Splash</title>
+    <style>
+        body { background: #fff; margin: 0; overflow: hidden; height: 100vh; }
+        .splash {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let splash = null;
+        let size = 0;
+
+        window.addEventListener('mousedown', (e) => {
+            size = 10;
+            splash = document.createElement('div');
+            splash.className = 'splash';
+            const hue = Math.random() * 360;
+            splash.style.background = `hsl(${hue}, 80%, 70%)`;
+            splash.style.left = e.clientX + 'px';
+            splash.style.top = e.clientY + 'px';
+            document.body.appendChild(splash);
+            
+            grow();
+        });
+
+        function grow() {
+            if (!splash) return;
+            size += 5;
+            splash.style.width = size + 'px';
+            splash.style.height = size + 'px';
+            requestAnimationFrame(grow);
+        }
+
+        window.addEventListener('mouseup', () => { splash = null; });
+    </script>
+</body>
+</html>

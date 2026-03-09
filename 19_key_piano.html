@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Key-Sound Piano</title>
+    <style>
+        body { background: #111; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        .key-display { font-size: 10rem; color: #fbbf24; text-shadow: 0 0 20px #fbbf24; }
+    </style>
+</head>
+<body>
+    <h1>Trüki midagi!</h1>
+    <div id="key" class="key-display">-</div>
+
+    <script>
+        const keyDiv = document.getElementById('key');
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        window.addEventListener('keydown', (e) => {
+            keyDiv.innerText = e.key.toUpperCase();
+            
+            // Генерируем звук на основе кода клавиши
+            const freq = 200 + (e.keyCode * 5); 
+            playTone(freq);
+        });
+
+        function playTone(freq) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'square'; // "Битный" звук
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.2);
+        }
+    </script>
+</body>
+</html>

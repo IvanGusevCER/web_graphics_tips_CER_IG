@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Dragging Physics</title>
+    <style>
+        body { background: #1e293b; height: 100vh; overflow: hidden; margin: 0; }
+        #dragObj {
+            width: 80px; height: 80px; background: #f43f5e;
+            border-radius: 20px; position: absolute; cursor: grab;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="dragObj">Vea!</div>
+    <script>
+        const obj = document.getElementById('dragObj');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let objX = mouseX, objY = mouseY;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            // Инерция: объект проходит часть пути до мыши в каждом кадре
+            objX += (mouseX - objX - 40) * 0.1; 
+            objY += (mouseY - objY - 40) * 0.1;
+
+            obj.style.left = objX + 'px';
+            obj.style.top = objY + 'px';
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Magnetic Button</title>
+    <style>
+        body {
+            height: 100vh; display: flex; justify-content: center; align-items: center;
+            background: #e2e8f0; margin: 0; font-family: sans-serif;
+        }
+        .magnet-btn {
+            padding: 20px 40px; font-size: 1.2rem; cursor: pointer;
+            background: #3b82f6; color: white; border: none; border-radius: 12px;
+            transition: transform 0.2s ease-out; /* Плавный возврат */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="magnet-btn" id="btn">Tõmba mind!</button>
+
+    <script>
+        const btn = document.getElementById('btn');
+
+        document.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const btnX = rect.left + rect.width / 2;
+            const btnY = rect.top + rect.height / 2;
+
+            // Вычисляем расстояние между мышью и центром кнопки
+            const distanceX = e.clientX - btnX;
+            const distanceY = e.clientY - btnY;
+            const distance = Math.sqrt(distanceX**2 + distanceY**2);
+
+            // Если мышь ближе чем 150px, кнопка начинает "магнититься"
+            if (distance < 150) {
+                const magnetForce = 0.3; // Сила притяжения
+                btn.style.transform = `translate(${distanceX * magnetForce}px, ${distanceY * magnetForce}px)`;
+            } else {
+                btn.style.transform = `translate(0, 0)`;
+            }
+        });
+    </script>
+</body>
+</html>

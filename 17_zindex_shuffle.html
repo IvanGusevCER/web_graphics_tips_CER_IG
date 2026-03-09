@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Z-Index Shuffle</title>
+    <style>
+        body { background: #ddd; height: 100vh; position: relative; }
+        .layer {
+            width: 200px; height: 200px; position: absolute;
+            border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; font-weight: bold; cursor: pointer; color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="layer" style="background:#ef4444; top:50px; left:50px;">1</div>
+    <div class="layer" style="background:#3b82f6; top:100px; left:150px;">2</div>
+    <div class="layer" style="background:#10b981; top:200px; left:80px;">3</div>
+
+    <script>
+        let topIndex = 10;
+        const layers = document.querySelectorAll('.layer');
+
+        layers.forEach(layer => {
+            layer.addEventListener('mousedown', () => {
+                topIndex++;
+                layer.style.zIndex = topIndex;
+                // Легкий эффект пульсации при клике
+                layer.style.transform = 'scale(1.05)';
+                setTimeout(() => layer.style.transform = 'scale(1)', 100);
+            });
+        });
+    </script>
+</body>
+</html>

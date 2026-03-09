@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Cursor</title>
+    <style>
+        body { background: #0f172a; height: 100vh; cursor: none; overflow: hidden; }
+        #cursor {
+            position: fixed;
+            width: 0; height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid #22d3ee;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div id="cursor"></div>
+    <script>
+        const cursor = document.getElementById('cursor');
+        let lastX = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 15 + 'px';
+            cursor.style.top = e.clientY - 15 + 'px';
+            
+            // Вращение в зависимости от направления движения
+            const rotation = e.clientX > lastX ? 15 : -15;
+            cursor.style.transform = `rotate(${rotation}deg)`;
+            lastX = e.clientX;
+        });
+    </script>
+</body>
+</html>

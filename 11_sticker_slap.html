@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Sticker Slap</title>
+    <style>
+        body { background: #eee; height: 100vh; overflow: hidden; margin: 0; }
+        .sticker {
+            position: absolute;
+            font-size: 50px;
+            user-select: none;
+            pointer-events: none;
+            transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Klõpsa ekraanil!</h2>
+    <script>
+        const stickers = ['⭐', '🔥', '🐱', '🦄', '🍕', '🚀', '🌈'];
+        window.addEventListener('mousedown', (e) => {
+            const s = document.createElement('div');
+            s.className = 'sticker';
+            s.innerText = stickers[Math.floor(Math.random() * stickers.length)];
+            s.style.left = e.clientX - 25 + 'px';
+            s.style.top = e.clientY - 25 + 'px';
+            const rotate = Math.random() * 60 - 30; // Случайный поворот
+            s.style.transform = `scale(0.5) rotate(${rotate}deg)`;
+            document.body.appendChild(s);
+            
+            // Эффект "прихлопа"
+            setTimeout(() => { s.style.transform = `scale(1) rotate(${rotate}deg)`; }, 10);
+        });
+    </script>
+</body>
+</html>

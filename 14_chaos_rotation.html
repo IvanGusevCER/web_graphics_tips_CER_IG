@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto-Chaos</title>
+    <style>
+        body { background: #0f172a; display: flex; gap: 40px; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .shape {
+            width: 100px; height: 100px; background: #38bdf8;
+            border-radius: 15px; display: flex; justify-content: center; align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="shape">A</div>
+    <div class="shape" style="background:#fbbf24">B</div>
+    <div class="shape" style="background:#4ade80">C</div>
+
+    <script>
+        const shapes = document.querySelectorAll('.shape');
+        shapes.forEach((shape, index) => {
+            let angle = 0;
+            let speed = 0.5 + Math.random() * 2; // Разная скорость для каждого
+            
+            function rotate() {
+                angle += speed;
+                shape.style.transform = `rotate(${angle}deg) translateY(${Math.sin(angle/20) * 20}px)`;
+                requestAnimationFrame(rotate);
+            }
+            rotate();
+        });
+    </script>
+</body>
+</html>

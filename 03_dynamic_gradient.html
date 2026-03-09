@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Background</title>
+    <style>
+        body {
+            margin: 0; height: 100vh; overflow: hidden;
+            background: #000; /* Базовый цвет */
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-family: sans-serif;
+        }
+        h1 { pointer-events: none; z-index: 1; }
+    </style>
+</head>
+<body>
+    <h1>Liiguta hiirt nurkadesse</h1>
+
+    <script>
+        window.addEventListener('mousemove', (e) => {
+            // Превращаем координаты мыши в проценты (0-100)
+            const xPct = Math.round((e.clientX / window.innerWidth) * 100);
+            const yPct = Math.round((e.clientY / window.innerHeight) * 100);
+
+            // Динамически меняем radial-gradient
+            // Точка градиента (at X% Y%) следует за мышью
+            document.body.style.background = `radial-gradient(at ${xPct}% ${yPct}%, #4f46e5, #1e1b4b, #000)`;
+        });
+    </script>
+</body>
+</html>
