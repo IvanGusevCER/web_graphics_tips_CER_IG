@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graafika | Мои интерактивные проекты</title>
     <style>
+        /* === ПЕРЕМЕННЫЕ И ОСНОВНЫЕ НАСТРОЙКИ === */
         :root {
             --bg: #0f172a;
             --card-bg: #1e293b;
             --accent: #38bdf8;
             --text: #f1f5f9;
         }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: var(--bg); 
@@ -21,14 +23,21 @@
             flex-direction: column;
             align-items: center;
         }
+
         h1 { margin-bottom: 30px; color: var(--accent); font-size: 2.5rem; }
+
+        /* === СЕТКА ПРОЕКТОВ (GRID) === */
         .grid {
             display: grid;
+            /* Автоматическое заполнение: карточки подстраиваются под ширину экрана */
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
             width: 100%;
             max-width: 1200px;
+            margin-bottom: 80px; /* Отступ снизу, чтобы не перекрывать кнопку */
         }
+
+        /* === СТИЛЬ КАРТОЧКИ === */
         .card {
             background: var(--card-bg);
             padding: 15px;
@@ -40,11 +49,16 @@
             display: flex;
             align-items: center;
         }
+
+        /* Эффект при наведении на проект */
         .card:hover {
             border-color: var(--accent);
             transform: translateY(-3px);
             background: #334155;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
         }
+
+        /* Порядковый номер проекта */
         .num {
             background: var(--accent);
             color: var(--bg);
@@ -57,6 +71,32 @@
             border-radius: 50%;
             margin-right: 15px;
             flex-shrink: 0;
+        }
+
+        /* === КНОПКА ПОРТФОЛИО (ФИКСИРОВАННАЯ) === */
+        .portfolio-link {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: block;
+            text-align: center;
+            background: #4a0000;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: 1px solid #777;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .portfolio-link:hover {
+            background: #ff4400;
+            color: #000;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -86,6 +126,10 @@
         <a href="19_key_piano.html" class="card"><div class="num">19</div> Key Piano</a>
         <a href="20_pacman.html" class="card"><div class="num">20</div> Pacman Game</a>
     </div>
+
+    <a href="https://cerber-portfolio.netlify.app/" target="_blank" class="portfolio-link">
+        Minu Portfoolio
+    </a>
 
 </body>
 </html>
